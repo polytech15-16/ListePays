@@ -34,7 +34,7 @@ public class MultiController extends MultiActionController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("hello");
 
-		// Faire la connexion à la BDD pour récupérer les villes
+		// Faire l'appel au webservice
 		List<String> villes = new ArrayList<String>();
 		villes.add("France");
 		villes.add("Portugal");
