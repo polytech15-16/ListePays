@@ -1,7 +1,5 @@
 package requeteSOAP;
 
-import java.util.Iterator;
-
 import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
@@ -14,9 +12,6 @@ import javax.xml.soap.SOAPPart;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Node;
 
 public class EnvoiMessage {
 	private SOAPConnection connection;
@@ -69,7 +64,7 @@ public class EnvoiMessage {
 		}
 	}
 
-	public void EmmissionReception(String destination, String pays)
+	public SOAPElement EmmissionReception(String destination, String pays)
 
 	{
 		try {
@@ -88,27 +83,11 @@ public class EnvoiMessage {
 			soapPart = reply.getSOAPPart();
 			envelope = soapPart.getEnvelope();
 			body = envelope.getBody();
-			// on examine les éléments renvoyés dans une liste
-			Iterator iter = body.getChildElements();
-			Node resultOuter = ((Node) iter.next()).getFirstChild();
-			Node result = resultOuter.getFirstChild();
-			// on affiche le résultat
-			System.out.println(result.getNodeValue());
-
-			// on crée le transformeur pour visualiser le message
-			transformerFactory = TransformerFactory.newInstance();
-			transformer = transformerFactory.newTransformer();
-			// On extrait le contenu du corps BODY
-			sourceContent = reply.getSOAPPart().getContent();
-			// Sortie de la transformation
-			StreamResult unresult = new StreamResult(System.out);
-			transformer.transform(sourceContent, unresult);
-			System.out.println();
-			// on ferme la connexion
 			connection.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		return body;
 	}
 
 }
