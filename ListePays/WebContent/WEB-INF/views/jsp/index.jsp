@@ -26,13 +26,13 @@
 		<p>Bienvenue sur notre site internet !</p>
 		<div class="row">
 			<div class="col-lg-12">
-				<c:if test="${not empty villes}">
+				<c:if test="${not empty pays}">
 					<form role="form" name="myform" id="myform" action="">
 						<div class="form-group">
 							<label for="pays">Pays :</label> 
 							<select name="pays">
-								<c:forEach var="ville" items="${villes}">
-									<option value="${ville}">${ville}</option>
+								<c:forEach var="un_pays" items="${pays}">
+									<option value="${un_pays}">${un_pays}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -47,6 +47,12 @@
 <div class="container">
 	<c:if test="${not empty pays_sel}">
 		<p>Pays selectionné : ${pays_sel}</p>
+	</c:if>
+	<c:if test="${not empty capitale}">
+		<p>Capitale : ${capitale}</p>
+	</c:if>
+	<c:if test="${not empty nb_habs}">
+		<p>Nombre d'habitants : ${nb_habs}</p>
 	</c:if>
 	<hr>
 	<footer>
