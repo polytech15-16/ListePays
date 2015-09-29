@@ -79,7 +79,7 @@ public class EnvoiMessage {
 
 			// traitement de la réponse
 			// On contrôle la sortie
-			System.out.println("\nREQUEST:\n");
+			//System.out.println("\nREQUEST:\n");
 			soapPart = reply.getSOAPPart();
 			envelope = soapPart.getEnvelope();
 			body = envelope.getBody();

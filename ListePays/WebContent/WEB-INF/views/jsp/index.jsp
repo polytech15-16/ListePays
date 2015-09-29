@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,48 +16,58 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Liste des pays</a>
+			<a class="navbar-brand" href="/ListePays">Liste des pays</a>
 		</div>
 	</div>
 </nav>
 
 <div class="jumbotron">
 	<div class="container">
-		<h1>${title}</h1>
-		<p>Bienvenue sur notre site internet !</p>
+		<h1>Welcome!</h1>
+		<p>
+			Vous désirez savoir quelle est la capital d'un pays ainsi que sa
+			population.<br /> N'hésiter plus, choisissez vite le pays qui vous
+			intéresse!
+		</p>
 		<div class="row">
-			<div class="col-lg-12">
-				<c:if test="${not empty pays}">
-					<form role="form" name="myform" id="myform" action="">
-						<div class="form-group">
-							<label for="pays">Pays :</label> 
-							<select name="pays">
-								<c:forEach var="un_pays" items="${pays}">
-									<option value="${un_pays}">${un_pays}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<button type="submit" class="btn btn-default">Envoyer</button>
-					</form>
-				</c:if>
-			</div>
+			<div class="col-lg-12"></div>
 		</div>
 	</div>
 </div>
 
 <div class="container">
-	<c:if test="${not empty pays_sel}">
-		<p>Pays selectionné : ${pays_sel}</p>
-	</c:if>
-	<c:if test="${not empty capitale}">
-		<p>Capitale : ${capitale}</p>
-	</c:if>
-	<c:if test="${not empty nb_habs}">
-		<p>Nombre d'habitants : ${nb_habs}</p>
-	</c:if>
-	<hr>
+	<div class="row">
+		<div class="col-md-6">
+			<c:if test="${not empty pays}">
+				<form role="form" name="myform" id="myform" action="">
+					<div class="form-group">
+						<label for="pays">Pays :</label> <select name="pays">
+							<c:forEach var="un_pays" items="${pays}">
+								<option value="${un_pays}">${un_pays}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Envoyer</button>
+				</form>
+			</c:if>
+		</div>
+		<div class="col-md-6">
+			<c:if test="${not empty pays_sel}">
+				<p><b>Pays selectionné :</b> ${pays_sel}</p>
+			</c:if>
+			<c:if test="${not empty capitale}">
+				<p><b>Capitale :</b> ${capitale}</p>
+			</c:if>
+			<c:if test="${not empty nb_habs}">
+				<p><b>Nombre d'habitants :</b> <fmt:formatNumber value="${nb_habs}" type="number"/></p>
+			</c:if>
+		</div>
+	</div>
+
+
 	<footer>
-		<p>&copy; Quentin Sébastien Jérémy 2015</p>
+		<hr>
+		<p>2015 &copy; Quentin &amp; Sébastien &amp; Jérémy</p>
 	</footer>
 </div>
 
