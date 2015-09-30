@@ -11,6 +11,11 @@
 	var="bootstrapCss" />
 <link href="${bootstrapCss}" rel="stylesheet" />
 <link href="${coreCss}" rel="stylesheet" />
+
+
+
+
+
 </head>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,7 +31,7 @@
 		<h1>Welcome!</h1>
 		<p>
 			Vous désirez savoir quelle est la capital d'un pays ainsi que sa
-			population.<br /> N'hésiter plus, choisissez vite le pays qui vous
+			population.<br /> N'hésitez plus, choisissez vite le pays qui vous
 			intéresse!
 		</p>
 		<div class="row">
@@ -53,23 +58,66 @@
 		</div>
 		<div class="col-md-6">
 			<c:if test="${not empty pays_sel}">
-				<p><b>Pays selectionné :</b> ${pays_sel}</p>
+				<p>
+					<b>Pays selectionné :</b> ${pays_sel}
+				</p>
 			</c:if>
 			<c:if test="${not empty capitale}">
-				<p><b>Capitale :</b> ${capitale}</p>
+				<p>
+					<b>Capitale :</b> <span id="test">${capitale}</span>
+				</p>
 			</c:if>
 			<c:if test="${not empty nb_habs}">
-				<p><b>Nombre d'habitants :</b> <fmt:formatNumber value="${nb_habs}" type="number"/></p>
+				<p>
+					<b>Nombre d'habitants :</b>
+					<fmt:formatNumber value="${nb_habs}" type="number" />
+				</p>
 			</c:if>
 		</div>
 	</div>
 
+	<c:if test="${not empty capitale}">
+		<div id="googleMap"></div>
+	</c:if>
 
 	<footer>
 		<hr>
 		<p>2015 &copy; Quentin &amp; Sébastien &amp; Jérémy</p>
 	</footer>
 </div>
+
+
+
+<script src="http://maps.googleapis.com/maps/api/js?"></script>
+<script>
+	function initialize() {
+		var geocoder, map;
+		codeAddress(document.getElementById('test').innerHTML);
+		function codeAddress(address) {
+			geocoder = new google.maps.Geocoder();
+			geocoder.geocode({
+				'address' : address
+			}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					var myOptions = {
+						zoom : 6,
+						center : results[0].geometry.location,
+						mapTypeId : google.maps.MapTypeId.ROADMAP
+					}
+					map = new google.maps.Map(document
+							.getElementById("googleMap"), myOptions);
+
+					var marker = new google.maps.Marker({
+						map : map,
+						position : results[0].geometry.location
+					});
+				}
+			});
+		}
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
 
 <spring:url value="/resources/core/css/hello.js" var="coreJs" />
 <spring:url value="/resources/core/css/bootstrap.min.js"
